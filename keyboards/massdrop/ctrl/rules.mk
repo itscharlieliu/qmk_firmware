@@ -35,4 +35,4 @@ AUTO_SHIFT_ENABLE = no      # Auto Shift
 # Custom RGB matrix handling
 RGB_MATRIX_ENABLE = custom
 
-CONSOLE_ENABLE = yes
+CONSOLE_ENABLE = no

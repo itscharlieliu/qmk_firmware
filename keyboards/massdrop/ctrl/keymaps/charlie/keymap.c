@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         76,      77,      78,                        79,                                 80,      81,      82,      83,                 84,      85,      86      \
     ),
     */
-    
+
 };
 
 // Runs just one time when the keyboard initializes.
@@ -88,13 +88,6 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
-
-#ifdef CONSOLE_ENABLE
-    // uprintf("-----------\n");
-    // uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-    // uprintf("rgb mode: %u\n", (char)rgblight_get_mode());
-    // uprintf("Default layer state: %u\n", default_later_state);
-#endif
 
     switch (keycode) {
         case U_T_AUTO:
