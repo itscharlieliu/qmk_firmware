@@ -53,6 +53,12 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
 };
 
+uint32_t layer_state_set_user(uint32_t state) {
+    uprintf("Default layer state: %u\n", state);
+
+    return state;
+}
+
 #define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
 #define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
@@ -61,9 +67,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
 
 #ifdef CONSOLE_ENABLE
-    uprintf("-----------\n");
-    uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-    uprintf("rgb mode: %u\n", (char)rgblight_get_mode());
+    // uprintf("-----------\n");
+    // uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+    // uprintf("rgb mode: %u\n", (char)rgblight_get_mode());
+    // uprintf("Default layer state: %u\n", default_later_state);
 #endif
 
     switch (keycode) {
