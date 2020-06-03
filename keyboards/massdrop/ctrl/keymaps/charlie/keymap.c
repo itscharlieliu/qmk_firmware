@@ -13,6 +13,20 @@ enum ctrl_keycodes {
     DBG_KBD,               //DEBUG Toggle Keyboard Prints
     DBG_MOU,               //DEBUG Toggle Mouse Prints
     MD_BOOT,               //Restart into bootloader after hold timeout
+    
+    // Custom Keycodes. These will be used by software to create macros
+    MC_1,
+    MC_2,
+    MC_3,
+    MC_4,
+    MC_5,
+    MC_6,
+    MC_7,
+    MC_8,
+    MC_9,
+    MC_10,
+    MC_11,
+    MC_12,
 };
 
 keymap_config_t keymap_config;
@@ -27,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                             KC_RALT, KC_RGUI,   KC_APP,  KC_RCTL,            KC_LEFT, KC_DOWN, KC_RGHT \
     ),
     [_NAV] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______, _______, \
+        _______, MC_1,    MC_2,    MC_3,    MC_4,    MC_5,    MC_6,    MC_7,    MC_8,    MC_9,    MC_10,   MC_11,   MC_12,              _______, _______, _______, \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, \
         _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, \
         _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______, _______, \
@@ -155,6 +169,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               }
             }
             return false;
+        // Custom macros
+        case MC_1 ... MC_12: {
+            if (record->event.pressed) {
+                int key = KC_F1 + keycode - MC_1; // This will get the corresponding F key 
+                register_code(KC_RCTRL);
+                register_code(KC_RALT);
+                register_code(KC_RSHIFT);
+                register_code(key);
+            }
+            else {
+                int key = KC_F1 + keycode - MC_1; // This will get the corresponding F key 
+                unregister_code(KC_RCTRL);
+                unregister_code(KC_RALT);
+                unregister_code(KC_RSHIFT);
+                unregister_code(key);
+            }
+            return false;
+        }
         default:
             return true; //Process all other keycodes normally
     }
